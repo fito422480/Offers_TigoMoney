@@ -1,0 +1,14 @@
+# Dependencias básicas
+streamlit==1.31.0
+pandas==2.1.0
+numpy==1.26.0
+pillow==10.0.0
+
+# AWS
+boto3==1.28.44
+
+# Visualización
+plotly==5.17.0
+
+# Utilidades
+python-dotenv==1.0.0
