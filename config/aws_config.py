@@ -1,9 +1,6 @@
 import boto3
 import datetime
-from config.app_config import AWS_REGION, ACCOUNT_ID, APPNAME, COUNTRY, ENVIRONMENT
-
-# Configuración de AWS
-BUCKET_NAME = f'step-functions-data-{ENVIRONMENT}-{APPNAME}-{COUNTRY}-{AWS_REGION}-{ACCOUNT_ID}'
+from config.app_config import AWS_REGION, ACCOUNT_ID, APPNAME, COUNTRY, ENVIRONMENT, BUCKET_NAME
 
 class STSClient:
     """
