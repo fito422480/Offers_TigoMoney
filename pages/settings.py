@@ -13,24 +13,6 @@ def show_settings():
     # Título de la página
     st.markdown(f"<h1 style='color: {TIGO_COLORS['text_primary']}; margin-bottom: 1rem;'>Configuración</h1>", unsafe_allow_html=True)
 
-    # Banner de sección
-    st.markdown(
-        f"""
-        <div style="
-            background-color: {TIGO_COLORS['primary']};
-            border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 20px;
-        ">
-            <h2 style="color: {TIGO_COLORS['secondary']}; margin: 0;">Configuración del Sistema</h2>
-            <p style="color: {TIGO_COLORS['text_primary']}; margin-top: 5px;">
-                Personalice los parámetros y ajustes del sistema de carga de ofertas.
-            </p>
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
-
     # Sección de configuración general
     st.markdown(
         f"""
@@ -40,8 +22,23 @@ def show_settings():
             padding: 20px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
             margin-bottom: 20px;
+            border-top: 4px solid {TIGO_COLORS['primary']};
+            border-left: 4px solid {TIGO_COLORS['primary']};
         ">
-            <h3 style="color: {TIGO_COLORS['secondary']}; margin-top: 0;">Configuración General</h3>
+            <h3 style="
+                color: {TIGO_COLORS['secondary']};
+                margin-top: 0;
+                margin-bottom: 15px;
+                font-weight: 600;
+                font-size: 1.2rem;
+                padding-bottom: 8px;
+                border-bottom: 2px solid {TIGO_COLORS['primary']};
+            ">Configuración General</h3>
+            <p style="
+                color: {TIGO_COLORS['text_secondary']};
+                margin: 0;
+            ">Personalice los parámetros y ajustes del sistema de carga de ofertas.</p>
+        </div>
         """,
         unsafe_allow_html=True
     )
@@ -110,8 +107,19 @@ def show_settings():
             padding: 20px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
             margin: 20px 0;
+            border-top: 4px solid {TIGO_COLORS['primary']};
+            border-left: 4px solid {TIGO_COLORS['primary']};
         ">
-            <h3 style="color: {TIGO_COLORS['secondary']}; margin-top: 0;">Configuración de Tipos de Ofertas</h3>
+            <h3 style="
+                color: {TIGO_COLORS['secondary']};
+                margin-top: 0;
+                margin-bottom: 15px;
+                font-weight: 600;
+                font-size: 1.2rem;
+                padding-bottom: 8px;
+                border-bottom: 2px solid {TIGO_COLORS['primary']};
+            ">Configuración de Tipos de Ofertas</h3>
+        </div>
         """,
         unsafe_allow_html=True
     )
@@ -127,8 +135,19 @@ def show_settings():
             padding: 20px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
             margin: 20px 0;
+            border-top: 4px solid {TIGO_COLORS['primary']};
+            border-left: 4px solid {TIGO_COLORS['primary']};
         ">
-            <h3 style="color: {TIGO_COLORS['secondary']}; margin-top: 0;">Guardar configuración</h3>
+            <h3 style="
+                color: {TIGO_COLORS['secondary']};
+                margin-top: 0;
+                margin-bottom: 15px;
+                font-weight: 600;
+                font-size: 1.2rem;
+                padding-bottom: 8px;
+                border-bottom: 2px solid {TIGO_COLORS['primary']};
+            ">Guardar configuración</h3>
+        </div>
         """,
         unsafe_allow_html=True
     )
@@ -150,7 +169,108 @@ def show_settings():
     # Configuración avanzada
     with st.expander("Configuración avanzada", expanded=False):
         # Sección de procesamiento
-        st.markdown("<h4 style='color: #363856;'>Configuración de procesamiento</h4>", unsafe_allow_html=True)
+        st.markdown(
+            f"""
+            <div style="
+                background-color: white;
+                border-radius: 10px;
+                padding: 20px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+                margin-bottom: 20px;
+                border-top: 4px solid {TIGO_COLORS['primary']};
+                border-left: 4px solid {TIGO_COLORS['primary']};
+            ">
+                <h3 style="
+                    color: {TIGO_COLORS['secondary']};
+                    margin-top: 0;
+                    margin-bottom: 15px;
+                    font-weight: 600;
+                    font-size: 1.2rem;
+                    padding-bottom: 8px;
+                    border-bottom: 2px solid {TIGO_COLORS['primary']};
+                ">Configuración de procesamiento</h3>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
+
+        # Sección de logs
+        st.markdown(
+            f"""
+            <div style="
+                background-color: white;
+                border-radius: 10px;
+                padding: 20px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+                margin-bottom: 20px;
+                border-top: 4px solid {TIGO_COLORS['primary']};
+                border-left: 4px solid {TIGO_COLORS['primary']};
+            ">
+                <h3 style="
+                    color: {TIGO_COLORS['secondary']};
+                    margin-top: 0;
+                    margin-bottom: 15px;
+                    font-weight: 600;
+                    font-size: 1.2rem;
+                    padding-bottom: 8px;
+                    border-bottom: 2px solid {TIGO_COLORS['primary']};
+                ">Configuración de registros (logs)</h3>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
+
+        # Sección de tareas programadas
+        st.markdown(
+            f"""
+            <div style="
+                background-color: white;
+                border-radius: 10px;
+                padding: 20px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+                margin-bottom: 20px;
+                border-top: 4px solid {TIGO_COLORS['primary']};
+                border-left: 4px solid {TIGO_COLORS['primary']};
+            ">
+                <h3 style="
+                    color: {TIGO_COLORS['secondary']};
+                    margin-top: 0;
+                    margin-bottom: 15px;
+                    font-weight: 600;
+                    font-size: 1.2rem;
+                    padding-bottom: 8px;
+                    border-bottom: 2px solid {TIGO_COLORS['primary']};
+                ">Tareas programadas</h3>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
+
+        # Sección de seguridad
+        st.markdown(
+            f"""
+            <div style="
+                background-color: white;
+                border-radius: 10px;
+                padding: 20px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+                margin-bottom: 20px;
+                border-top: 4px solid {TIGO_COLORS['primary']};
+                border-left: 4px solid {TIGO_COLORS['primary']};
+            ">
+                <h3 style="
+                    color: {TIGO_COLORS['secondary']};
+                    margin-top: 0;
+                    margin-bottom: 15px;
+                    font-weight: 600;
+                    font-size: 1.2rem;
+                    padding-bottom: 8px;
+                    border-bottom: 2px solid {TIGO_COLORS['primary']};
+                ">Configuración de seguridad</h3>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
 
         # Controles de configuración avanzada
         col1, col2 = st.columns(2)
@@ -162,9 +282,6 @@ def show_settings():
         with col2:
             st.checkbox("Habilitar notificaciones por correo electrónico", value=True)
             st.checkbox("Habilitar notificaciones de error en Slack", value=False)
-
-        # Sección de logs
-        st.markdown("<h4 style='color: #363856;'>Configuración de registros (logs)</h4>", unsafe_allow_html=True)
 
         log_level = st.selectbox(
             "Nivel de log",
@@ -178,17 +295,11 @@ def show_settings():
         with col2:
             st.checkbox("Generar reportes de carga", value=True)
 
-        # Sección de tareas programadas
-        st.markdown("<h4 style='color: #363856;'>Tareas programadas</h4>", unsafe_allow_html=True)
-
         col1, col2 = st.columns(2)
         with col1:
             st.checkbox("Habilitar cargas automáticas", value=False)
         with col2:
             st.time_input("Hora de carga programada", value=None)
-
-        # Sección de seguridad
-        st.markdown("<h4 style='color: #363856;'>Configuración de seguridad</h4>", unsafe_allow_html=True)
 
         col1, col2, col3 = st.columns(3)
         with col1:

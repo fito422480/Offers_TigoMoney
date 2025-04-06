@@ -4,8 +4,8 @@ from libs.discard_offers_functions import discard_offers_rules, discard_micro_lo
 from libs.transform_da_json import transform_da_json
 
 # Environment variables
-ENVIRONMENT = "dev"
-COUNTRY = "colombia"
+ENVIRONMENT = "QA"
+COUNTRY = "Paraguay"
 APPNAME = "tigo-money"
 AWS_REGION = "us-east-1"
 ACCOUNT_ID = "123456789012"
@@ -19,7 +19,7 @@ MONTH = datetime.datetime.now().strftime("%m")
 DAY = datetime.datetime.now().strftime("%d")
 
 # User information (from AWS in production)
-LOAD_USER = "user"
+LOAD_USER = "AWSRISKCAPITAL"
 
 # Colores de la marca Tigo Money
 TIGO_COLORS = {
@@ -111,26 +111,30 @@ OFFER_CONFIGURATION = {
 HELP_TEXTS = {
     OfferLoadTypes.BATCH.value: {
         "format_required": """
-        <p style="font-weight: 600; color: white; margin-bottom: 10px;">Formato requerido:</p>
-        <ul style="padding-left: 20px; margin-bottom: 15px; color: white;">
-            <li>Archivo CSV</li>
-            <li>Columnas obligatorias: FirstName, LastName</li>
-            <li>Tamaño máximo: 50MB</li>
-        </ul>
+        <div style="background-color: #363856; padding: 15px; border-radius: 8px; color: white; font-family: Arial, sans-serif; font-size: 14px;">
+            <p style="font-weight: 600; margin-bottom: 10px;">Formato requerido:</p>
+            <ul style="padding-left: 20px; margin-bottom: 15px; list-style: none;">
+                <li style="margin-bottom: 5px;">Archivo CSV</li>
+                <li style="margin-bottom: 5px;">Columnas obligatorias: FirstName, LastName</li>
+                <li style="margin-bottom: 5px;">Tamaño máximo: 50MB</li>
+            </ul>
 
-        <p style="font-weight: 600; color: white; margin-bottom: 10px;">Proceso:</p>
-        <ol style="padding-left: 20px; color: white;">
-            <li>Suba el archivo</li>
-            <li>Valide los datos en la vista previa</li>
-            <li>Haga clic en "Procesar y Cargar"</li>
-        </ol>
+            <p style="font-weight: 600; margin-bottom: 10px;">Proceso:</p>
+            <ol style="padding-left: 20px; margin-bottom: 15px; list-style: none;">
+                <li style="margin-bottom: 5px;">Suba el archivo</li>
+                <li style="margin-bottom: 5px;">Valide los datos en la vista previa</li>
+                <li style="margin-bottom: 5px;">Haga clic en "Procesar y Cargar"</li>
+            </ol>
+        </div>
         """,
         "additional_info": """
-        Las ofertas batch se procesan en fragmentos y se cargan a S3 con la siguiente estructura:
+        <div style="background-color: #363856; padding: 15px; border-radius: 8px; color: white; font-family: Arial, sans-serif; font-size: 14px;">
+            Las ofertas batch se procesan en fragmentos y se cargan a S3 con la siguiente estructura:
 
-        - **Bucket:** `{bucket_name}`
-        - **Ruta:** `offers/news/batch/year={year}/month={month}/day={day}/`
-        - **Formato de archivos:** CSV con valores separados por comas
+            - **Bucket:** `{bucket_name}`
+            - **Ruta:** `offers/news/batch/year={year}/month={month}/day={day}/`
+            - **Formato de archivos:** CSV con valores separados por comas
+        </div>
         """
     },
     # Resto de la configuración de HELP_TEXTS sigue igual...

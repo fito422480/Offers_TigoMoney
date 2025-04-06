@@ -17,6 +17,7 @@ def render_card(title, content):
         margin-bottom: 20px;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
         border-top: 4px solid {TIGO_COLORS['primary']};
+        border-left: 4px solid {TIGO_COLORS['primary']};
     ">
         <h3 style="
             color: {TIGO_COLORS['secondary']};

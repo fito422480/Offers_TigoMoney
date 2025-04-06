@@ -12,13 +12,7 @@ def show_offer_upload():
     Muestra la página de carga de ofertas con estilo Tigo Money.
     """
     # Título principal con ícono (link icon)
-    st.markdown("<h1 style='color: #363856; margin-bottom: 0;'>📤 Carga de Ofertas</h1>", unsafe_allow_html=True)
-
-    # Banner de bienvenida
-    welcome_banner(
-        "Bienvenido al Sistema de Carga de Ofertas",
-        "Seleccione el tipo de oferta que desea cargar en las pestañas a continuación."
-    )
+    st.markdown("<h1 style='color: #363856; margin-bottom: 0;'>Carga de Ofertas</h1>", unsafe_allow_html=True)
 
     # Crear pestañas para los diferentes tipos de oferta
     tabs, tab_names = create_tabs_for_offers()
@@ -33,7 +27,7 @@ def show_offer_upload():
 
         with tab:
             # Título de la sección con ícono (link icon)
-            st.markdown(f"<h2 style='color: #363856;'>📤 Carga de Ofertas {offer_type_name}</h2>", unsafe_allow_html=True)
+            st.markdown(f"<h2 style='color: #363856;'>Carga de Ofertas {offer_type_name}</h2>", unsafe_allow_html=True)
 
             # Crear layout con columnas
             col1, col2 = st.columns([2, 1])
@@ -217,7 +211,7 @@ def show_offer_upload():
                         <ul style="color: #363856;">
                             <li><strong>Bucket:</strong> <code style="background-color: #edf2f7; padding: 2px 4px; border-radius: 4px;">{BUCKET_NAME}</code></li>
                             <li><strong>Ruta:</strong> <code style="background-color: #edf2f7; padding: 2px 4px; border-radius: 4px;">{folder_name}</code></li>
-                            <li><strong>Fecha de proceso:</strong> {YEAR}-{MONTH}-{DAY}</li>
+                            <li><strong>Fecha de proceso:</strong> {DAY}/{MONTH}/{YEAR}</li>
                         </ul>
                     </div>
                     """,

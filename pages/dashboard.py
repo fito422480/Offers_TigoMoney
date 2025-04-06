@@ -13,12 +13,13 @@ def show_dashboard():
     """
     Muestra el dashboard con estadísticas y gráficos.
     """
-        # Inicializar session_state si no existe
+    # Inicializar session_state si no existe
     if 'upload_history' not in st.session_state:
         st.session_state.upload_history = []
 
     if 'upload_stats' not in st.session_state:
         st.session_state.upload_stats = {}
+
     # Título del dashboard
     st.markdown(
         """
@@ -27,7 +28,7 @@ def show_dashboard():
                 Dashboard de Carga de Ofertas
             </h1>
             <p style="color: #4b4d6d; margin: 0.5rem 0 0 0; font-size: 1rem;">
-                Visualiza y controla tus operaciones de carga de ofertas a un vistazo
+                Visualiza y controla tus operaciones de carga de ofertas!
             </p>
         </div>
         """,
@@ -40,12 +41,12 @@ def show_dashboard():
     # Crear una fila de métricas
     col1, col2, col3, col4 = st.columns(4)
 
-    # Obtener datos de carga desde session_state
-    total_uploads = sum(sum(type_stats.values()) for date_stats in st.session_state.upload_stats.values() for type_stats in date_stats.values()) if st.session_state.upload_stats else 0
-
-    # Obtener datos de hoy
+    # Calcular métricas
+    total_uploads = len(st.session_state.upload_history)
+    
     today = datetime.datetime.now().strftime("%Y-%m-%d")
-    today_uploads = sum(st.session_state.upload_stats.get(today, {}).values()) if today in st.session_state.upload_stats else 0
+    today_uploads = sum(1 for item in st.session_state.upload_history 
+                      if pd.to_datetime(item['timestamp']).strftime("%Y-%m-%d") == today)
 
     # Mostrar métricas en estilo de tarjetas
     with col1:
@@ -136,67 +137,72 @@ def show_dashboard():
                 padding: 1.5rem;
                 box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
                 margin-bottom: 1rem;
+                border-top: 4px solid {TIGO_COLORS['primary']};
+                border-left: 4px solid {TIGO_COLORS['primary']};
             ">
-                <h3 style="color: {TIGO_COLORS['secondary']}; margin-top: 0; font-size: 1.25rem; margin-bottom: 1rem;">
-                    Actividad Reciente
-                </h3>
+                <h3 style="
+                    color: {TIGO_COLORS['secondary']};
+                    margin-top: 0;
+                    margin-bottom: 1rem;
+                    font-weight: 600;
+                    font-size: 1.2rem;
+                    padding-bottom: 8px;
+                    border-bottom: 2px solid {TIGO_COLORS['primary']};
+                ">Actividad Reciente</h3>
+            </div>
             """,
             unsafe_allow_html=True
         )
 
         if st.session_state.upload_history:
-            # Crear un dataframe para mostrar el historial
-            history_df = pd.DataFrame(st.session_state.upload_history[-5:])
-            history_df['filename'] = history_df['filename'].apply(lambda x: Path(x).name)
-
-            # Mostrar historial de cargas recientes
-            st.dataframe(
-                history_df[['timestamp', 'filename', 'bucket']],
-                column_config={
-                    "timestamp": "Fecha y Hora",
-                    "filename": "Archivo",
-                    "bucket": "Bucket"
-                },
-                hide_index=True,
-                use_container_width=True
-            )
+            # Mostrar las últimas 5 cargas
+            recent_uploads = st.session_state.upload_history[-5:][::-1]
+            for upload in recent_uploads:
+                timestamp = pd.to_datetime(upload['timestamp'])
+                st.markdown(
+                    f"""
+                    <div style="
+                        background-color: white;
+                        border-radius: 8px;
+                        padding: 1rem;
+                        margin-bottom: 0.75rem;
+                        border-left: 4px solid {TIGO_COLORS['primary']};
+                    ">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <div style="font-weight: 500; color: {TIGO_COLORS['secondary']};">{upload['type']}</div>
+                                <div style="font-size: 0.875rem; color: {TIGO_COLORS['text_secondary']};">
+                                    {timestamp.strftime('%d/%m/%Y %H:%M')}
+                                </div>
+                            </div>
+                            <div style="font-size: 0.875rem; color: {TIGO_COLORS['success'] if upload['status'] == 'success' else TIGO_COLORS['error']};">
+                                {upload['status'].capitalize()}
+                            </div>
+                        </div>
+                    </div>
+                    """,
+                    unsafe_allow_html=True
+                )
         else:
-            # Datos de ejemplo si no hay actividad
-            st.info("No hay actividad reciente para mostrar.")
-
-            # Mostrar datos de ejemplo
-            sample_data = {
-                'timestamp': [
-                    '2025-03-27 09:15:32',
-                    '2025-03-27 08:30:45',
-                    '2025-03-26 14:22:18'
-                ],
-                'filename': [
-                    'output_lending_offers.csv',
-                    'campaign_deductions_debt_loans.csv',
-                    'collection_refinancing_campaign.csv'
-                ],
-                'bucket': [BUCKET_NAME] * 3
-            }
-
-            sample_df = pd.DataFrame(sample_data)
-            st.caption("Vista previa de ejemplo:")
-            st.dataframe(
-                sample_df,
-                column_config={
-                    "timestamp": "Fecha y Hora",
-                    "filename": "Archivo",
-                    "bucket": "Bucket"
-                },
-                hide_index=True,
-                use_container_width=True
+            st.markdown(
+                f"""
+                <div style="
+                    background-color: white;
+                    border-radius: 8px;
+                    padding: 1rem;
+                    margin-bottom: 0.75rem;
+                    border-left: 4px solid {TIGO_COLORS['primary']};
+                ">
+                    <div style="font-size: 0.875rem; color: {TIGO_COLORS['text_secondary']};">
+                        No hay actividad reciente para mostrar.
+                    </div>
+                </div>
+                """,
+                unsafe_allow_html=True
             )
-
-        # Cerrar el div de la tarjeta
-        st.markdown("</div>", unsafe_allow_html=True)
 
     with col2:
-        # Gráfico de distribución
+        # Sección de distribución de cargas
         st.markdown(
             f"""
             <div style="
@@ -205,41 +211,48 @@ def show_dashboard():
                 padding: 1.5rem;
                 box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
                 margin-bottom: 1rem;
+                border-top: 4px solid {TIGO_COLORS['primary']};
+                border-left: 4px solid {TIGO_COLORS['primary']};
             ">
-                <h3 style="color: {TIGO_COLORS['secondary']}; margin-top: 0; font-size: 1.25rem; margin-bottom: 1rem;">
-                    Distribución de Cargas
-                </h3>
+                <h3 style="
+                    color: {TIGO_COLORS['secondary']};
+                    margin-top: 0;
+                    margin-bottom: 1rem;
+                    font-weight: 600;
+                    font-size: 1.2rem;
+                    padding-bottom: 8px;
+                    border-bottom: 2px solid {TIGO_COLORS['primary']};
+                ">Distribución de Cargas</h3>
+            </div>
             """,
             unsafe_allow_html=True
         )
 
-        # Crear datos para el gráfico
-        if st.session_state.upload_stats:
-            offer_counts = {}
-            for date_stats in st.session_state.upload_stats.values():
-                for offer_type, count in date_stats.items():
-                    if offer_type not in offer_counts:
-                        offer_counts[offer_type] = 0
-                    offer_counts[offer_type] += count
+        if st.session_state.upload_history:
+            # Crear gráfico de distribución
+            history_df = pd.DataFrame(st.session_state.upload_history)
+            
+            # Contar por tipo de carga
+            type_counts = history_df['type'].value_counts()
+            
+            # Crear gráfico de barras
+            fig = go.Figure()
+            fig.add_trace(go.Bar(
+                x=type_counts.index,
+                y=type_counts.values,
+                marker_color=[TIGO_COLORS['primary'], TIGO_COLORS['secondary'], TIGO_COLORS['primary_light'], TIGO_COLORS['secondary_light']][:len(type_counts)]
+            ))
 
-            if offer_counts:
-                fig = px.pie(
-                    values=list(offer_counts.values()),
-                    names=list(offer_counts.keys()),
-                    color_discrete_sequence=[TIGO_COLORS['primary'], TIGO_COLORS['secondary'],
-                                            TIGO_COLORS['primary_light'], TIGO_COLORS['secondary_light']],
-                    hole=0.4
-                )
+            fig.update_layout(
+                title="",
+                xaxis_title="Tipo de Carga",
+                yaxis_title="Número de Cargas",
+                template="plotly_white",
+                margin=dict(t=0, b=50, l=50, r=20),
+                height=300
+            )
 
-                fig.update_layout(
-                    margin=dict(t=0, b=0, l=0, r=0),
-                    showlegend=True,
-                    legend=dict(orientation="h", yanchor="bottom", y=-0.2)
-                )
-
-                st.plotly_chart(fig, use_container_width=True)
-            else:
-                st.info("No hay datos suficientes para la gráfica.")
+            st.plotly_chart(fig, use_container_width=True)
         else:
             # Datos de ejemplo
             sample_counts = {
@@ -249,25 +262,97 @@ def show_dashboard():
                 "Refinanciamiento": 3
             }
 
-            fig = px.pie(
-                values=list(sample_counts.values()),
-                names=list(sample_counts.keys()),
+            fig = px.bar(
+                x=list(sample_counts.keys()),
+                y=list(sample_counts.values()),
                 color_discrete_sequence=[TIGO_COLORS['primary'], TIGO_COLORS['secondary'],
-                                        TIGO_COLORS['primary_light'], TIGO_COLORS['secondary_light']],
-                hole=0.4
+                                        TIGO_COLORS['primary_light'], TIGO_COLORS['secondary_light']]
             )
 
             fig.update_layout(
-                margin=dict(t=0, b=0, l=0, r=0),
-                showlegend=True,
-                legend=dict(orientation="h", yanchor="bottom", y=-0.2)
+                title="",
+                xaxis_title="Tipo de Carga",
+                yaxis_title="Número de Cargas",
+                template="plotly_white",
+                margin=dict(t=0, b=50, l=50, r=20),
+                height=300
             )
 
             st.caption("Vista previa de ejemplo:")
             st.plotly_chart(fig, use_container_width=True)
 
-        # Cerrar el div de la tarjeta
-        st.markdown("</div>", unsafe_allow_html=True)
+    # Historial de cargas
+    st.markdown(
+        f"""
+        <div style="
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            border-top: 4px solid {TIGO_COLORS['primary']};
+            border-left: 4px solid {TIGO_COLORS['primary']};
+        ">
+            <h3 style="
+                color: {TIGO_COLORS['secondary']};
+                margin-top: 0;
+                margin-bottom: 1rem;
+                font-weight: 600;
+                font-size: 1.2rem;
+                padding-bottom: 8px;
+                border-bottom: 2px solid {TIGO_COLORS['primary']};
+            ">Historial de Cargas</h3>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+
+    if not st.session_state.upload_history:
+        st.markdown(
+            f"""
+            <div style="
+                background-color: white;
+                border-radius: 10px;
+                padding: 2rem;
+                margin: 1rem 0;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+                border-top: 4px solid {TIGO_COLORS['primary']};
+                border-left: 4px solid {TIGO_COLORS['primary']};
+            ">
+                <div style="text-align: center;">
+                    <h4 style="
+                        color: {TIGO_COLORS['secondary']};
+                        margin: 0 0 1rem 0;
+                        font-weight: 600;
+                    ">No hay historial disponible</h4>
+                    <p style="
+                        color: {TIGO_COLORS['text_secondary']};
+                        margin: 0;
+                    ">No se han encontrado cargas anteriores. El historial se mostrará aquí una vez que realice cargas de archivos.</p>
+                </div>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
+    else:
+        # Crear un dataframe para mostrar el historial
+        history_df = pd.DataFrame(st.session_state.upload_history)
+        history_df['filename'] = history_df['filename'].apply(lambda x: Path(x).name)
+        history_df['date'] = pd.to_datetime(history_df['timestamp']).dt.strftime('%d/%m/%Y')
+
+        # Mostrar historial de cargas recientes
+        st.dataframe(
+            history_df[['date', 'filename', 'bucket', 'type', 'status']],
+            column_config={
+                "date": "Fecha",
+                "filename": "Archivo",
+                "bucket": "Bucket",
+                "type": "Tipo",
+                "status": "Estado"
+            },
+            hide_index=True,
+            use_container_width=True
+        )
 
     # Tendencia semanal
     st.markdown(
@@ -278,10 +363,19 @@ def show_dashboard():
             padding: 1.5rem;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
             margin-bottom: 1rem;
+            border-top: 4px solid {TIGO_COLORS['primary']};
+            border-left: 4px solid {TIGO_COLORS['primary']};
         ">
-            <h3 style="color: {TIGO_COLORS['secondary']}; margin-top: 0; font-size: 1.25rem; margin-bottom: 1rem;">
-                Tendencia Semanal
-            </h3>
+            <h3 style="
+                color: {TIGO_COLORS['secondary']};
+                margin-top: 0;
+                margin-bottom: 1rem;
+                font-weight: 600;
+                font-size: 1.2rem;
+                padding-bottom: 8px;
+                border-bottom: 2px solid {TIGO_COLORS['primary']};
+            ">Tendencia Semanal</h3>
+        </div>
         """,
         unsafe_allow_html=True
     )

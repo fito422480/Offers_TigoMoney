@@ -10,11 +10,12 @@ def render_sidebar():
     """
     with st.sidebar:
         # Sección de navegación
-        st.markdown("### Navegación")
+        st.markdown("---")
+        st.markdown("### Home")
 
         # Crear selección de navegación con radio buttons más estilizados
         selected = st.radio(
-            "Navegación",
+            "Seleccione una opción",
             options=[
                 "Dashboard",
                 "Carga de Ofertas",
@@ -38,10 +39,9 @@ def render_sidebar():
         st.markdown("---")
         st.markdown("### Fecha")
 
-        # Mostrar las fechas en formato simple
-        st.text(f"Año: {YEAR}")
-        st.text(f"Mes: {MONTH}")
-        st.text(f"Día: {DAY}")
+        # Mostrar la fecha en formato simple
+        formatted_date = f"{DAY}/{MONTH}/{YEAR}"
+        st.text(f"Fecha: {formatted_date}")
 
     return selected
 

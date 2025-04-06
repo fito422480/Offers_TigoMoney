@@ -44,6 +44,9 @@ def main():
         show_history()
     elif app_page == "Configuración":
         show_settings()
+    else:
+        # Si no se reconoce la página, mostrar Dashboard por defecto
+        show_dashboard()
 
 if __name__ == "__main__":
     main()

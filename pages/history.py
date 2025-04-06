@@ -20,24 +20,6 @@ def show_history():
     # Título de la página
     st.markdown("<h1 style='color: #363856; margin-bottom: 1rem;'>Historial de Cargas</h1>", unsafe_allow_html=True)
 
-    # Banner de sección
-    st.markdown(
-        f"""
-        <div style="
-            background-color: {TIGO_COLORS['primary']};
-            border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 20px;
-        ">
-            <h2 style="color: {TIGO_COLORS['secondary']}; margin: 0;">Historial de operaciones</h2>
-            <p style="color: {TIGO_COLORS['secondary']}; margin-top: 5px;">
-                Seguimiento detallado de todas las cargas realizadas en el sistema.
-            </p>
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
-
     # Display upload history
     if st.session_state.upload_history:
         # Crear sección de historial reciente
@@ -232,14 +214,23 @@ def show_history():
             <div style="
                 background-color: white;
                 border-radius: 10px;
-                padding: 20px;
+                padding: 2rem;
+                margin: 1rem 0;
                 box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-                margin-bottom: 20px;
+                border-top: 4px solid {TIGO_COLORS['primary']};
+                border-left: 4px solid {TIGO_COLORS['primary']};
                 text-align: center;
             ">
                 <img src="https://img.icons8.com/fluency/96/000000/empty-box.png" style="width: 64px; height: 64px; margin-bottom: 15px;">
-                <h3 style="color: {TIGO_COLORS['secondary']}; margin-top: 0;">No hay historial disponible</h3>
-                <p style="color: #4b4d6d;">No se han encontrado cargas anteriores. El historial se mostrará aquí una vez que realice cargas de archivos.</p>
+                <h4 style="
+                    color: {TIGO_COLORS['secondary']};
+                    margin: 0 0 1rem 0;
+                    font-weight: 600;
+                ">No hay historial disponible</h4>
+                <p style="
+                    color: {TIGO_COLORS['text_secondary']};
+                    margin: 0;
+                ">No se han encontrado cargas anteriores. El historial se mostrará aquí una vez que realice cargas de archivos.</p>
             </div>
             """,
             unsafe_allow_html=True

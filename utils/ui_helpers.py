@@ -381,47 +381,59 @@ def show_logo():
     """
     Muestra el logo de Tigo Money en la sidebar.
     """
-    try:
-        # Intenta cargar el logo desde assets
-        logo_path = Path('assets/tigo_logo.png')
-        if logo_path.exists():
-            with open(logo_path, "rb") as img_file:
-                encoded_image = base64.b64encode(img_file.read()).decode()
-
-            st.sidebar.markdown(
-                f"""
-                <div style="text-align: center; margin-bottom: 20px;">
-                    <img src="data:image/png;base64,{encoded_image}" style="width: 120px;">
-                </div>
-                """,
-                unsafe_allow_html=True,
-            )
-        else:
-            # Si no existe el logo, muestra un texto estilizado
-            st.sidebar.markdown(
-                f"""
-                <div style="text-align: center; margin: 20px 0;">
-                    <div style="display: inline-block; padding: 10px 15px; background-color: {TIGO_COLORS['secondary']};
-                         border-radius: 8px; font-weight: bold; font-size: 24px; letter-spacing: 1px;">
-                        Tigo<span style="color: {TIGO_COLORS['primary']}"> Money</span>
+    with st.sidebar:
+        # Logo Tigo Money con colores de la marca
+        try:
+            # Intenta cargar el logo TM.png desde la nueva ubicación
+            logo_path = Path(__file__).parent.parent / 'assets' / 'img' / 'tm.png'
+            
+            if logo_path.exists():
+                with open(logo_path, "rb") as img_file:
+                    encoded_image = base64.b64encode(img_file.read()).decode()
+                
+                st.markdown(
+                    f"""
+                    <div style="margin: 10px 0;">
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <img src="data:image/png;base64,{encoded_image}" style="width: 60px;">
+                            <div style="color: #363856; font-weight: bold; font-size: 16px;">
+                                Panel de Control
+                            </div>
+                        </div>
+                    </div>
+                    """,
+                    unsafe_allow_html=True
+                )
+            else:
+                # Si no existe el logo, muestra el texto estilizado
+                logo_html = """
+                <div style="margin: 10px 0;">
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <div style="display: inline-block; padding: 6px 10px; background-color: rgb(54, 56, 86); border-radius: 4px; font-weight: bold; font-size: 16px; letter-spacing: 0.3px;">
+                            Tigo<span style="color: rgb(250, 198, 25);"> Money</span>
+                        </div>
+                        <div style="color: #363856; font-weight: bold; font-size: 16px;">
+                            Panel de Control
+                        </div>
                     </div>
                 </div>
-                """,
-                unsafe_allow_html=True,
-            )
-    except Exception as e:
-        # Si ocurre algún error, muestra sólo el texto
-        st.sidebar.markdown(
-            f"""
-            <div style="text-align: center; margin: 20px 0;">
-                <div style="display: inline-block; padding: 10px 15px; background-color: {TIGO_COLORS['secondary']};
-                     border-radius: 8px; font-weight: bold; font-size: 24px; letter-spacing: 1px;">
-                    Tigo<span style="color: {TIGO_COLORS['primary']}"> Money</span>
+                """
+                st.markdown(logo_html, unsafe_allow_html=True)
+        except Exception as e:
+            # Si ocurre algún error, muestra el texto estilizado
+            logo_html = """
+            <div style="margin: 10px 0;">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <div style="display: inline-block; padding: 6px 10px; background-color: rgb(54, 56, 86); border-radius: 4px; font-weight: bold; font-size: 16px; letter-spacing: 0.3px;">
+                        Tigo<span style="color: rgb(250, 198, 25);"> Money</span>
+                    </div>
+                    <div style="color: #363856; font-weight: bold; font-size: 16px;">
+                        Panel de Control
+                    </div>
                 </div>
             </div>
-            """,
-            unsafe_allow_html=True,
-        )
+            """
+            st.markdown(logo_html, unsafe_allow_html=True)
 
 def welcome_banner(title, description):
     """
