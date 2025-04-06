@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 from components.cards import render_card, show_alert
 from components.navigation import create_tabs_for_offers
-from config.app_config import OFFER_CONFIGURATION, HELP_TEXTS, BUCKET_NAME, YEAR, MONTH, DAY
+from config.app_config import OFFER_CONFIGURATION, HELP_TEXTS, BUCKET_NAME, YEAR, MONTH, DAY, TIGO_COLORS
 from utils.file_processors import process_and_upload_csv
 from libs.classes import OfferLoadTypes
 from utils.ui_helpers import welcome_banner, create_section_header
@@ -126,39 +126,61 @@ def show_offer_upload():
                         st.error(f"Error al procesar el archivo: {str(e)}")
 
             with col2:
-                # Card de información
-                help_text = HELP_TEXTS.get(offer_type, {}).get("format_required", "")
-                if not help_text:
-                    # Texto predeterminado si no hay específico
-                    help_text = f"""
-                    <div style="color: white;">
-                        <p style="font-weight: 600; color: white; margin-bottom: 10px;">Formato requerido:</p>
-                        <ul style="padding-left: 20px; margin-bottom: 15px;">
-                            <li>Archivo CSV</li>
-                            <li>Tamaño máximo: 50MB</li>
-                        </ul>
-
-                        <p style="font-weight: 600; color: white; margin-bottom: 10px;">Proceso:</p>
-                        <ol style="padding-left: 20px;">
+                # Sección de información
+                st.markdown(
+                    f"""
+                    <div style="
+                        background-color: white;
+                        border-radius: 10px;
+                        padding: 20px;
+                        margin-bottom: 20px;
+                        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+                        border-top: 4px solid {TIGO_COLORS['primary']};
+                        border-left: 4px solid {TIGO_COLORS['primary']};
+                    ">
+                        <h3 style="
+                            color: {TIGO_COLORS['secondary']};
+                            margin-top: 0;
+                            margin-bottom: 1rem;
+                            font-weight: 600;
+                            font-size: 1.2rem;
+                            padding-bottom: 8px;
+                            border-bottom: 2px solid {TIGO_COLORS['primary']};
+                        ">Información</h3>
+                        <p style="
+                            color: {TIGO_COLORS['text_secondary']};
+                            margin-bottom: 1rem;
+                        ">Formato requerido:</p>
+                        <div style="
+                            background-color: #f3f4f6;
+                            padding: 15px;
+                            border-radius: 8px;
+                            margin-bottom: 1rem;
+                        ">
+                            <ul style="
+                                color: {TIGO_COLORS['text_secondary']};
+                                margin: 0;
+                                padding-left: 20px;
+                            ">
+                                <li>Archivo CSV</li>
+                                <li>Tamaño máximo: 50MB</li>
+                            </ul>
+                        </div>
+                        <p style="
+                            color: {TIGO_COLORS['text_secondary']};
+                            margin-bottom: 1rem;
+                            font-weight: 600;
+                        ">Proceso:</p>
+                        <ol style="
+                            color: {TIGO_COLORS['text_secondary']};
+                            margin: 0;
+                            padding-left: 20px;
+                            list-style-type: decimal;
+                        ">
                             <li>Suba el archivo</li>
                             <li>Valide los datos en la vista previa</li>
                             <li>Haga clic en "Procesar y Cargar"</li>
                         </ol>
-                    </div>
-                    """
-
-                st.markdown(
-                    f"""
-                    <div style="
-                        background-color: #363856;
-                        color: white;
-                        border-radius: 10px;
-                        padding: 20px;
-                        margin-bottom: 20px;
-                        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-                    ">
-                        <h3 style="color: #fac619; margin-top: 0; font-weight: 600;">Información</h3>
-                        {help_text}
                     </div>
                     """,
                     unsafe_allow_html=True
@@ -168,22 +190,33 @@ def show_offer_upload():
                 st.markdown(
                     f"""
                     <div style="
-                        background-color: #363856;
-                        color: white;
+                        background-color: white;
                         border-radius: 10px;
                         padding: 20px;
                         margin-bottom: 20px;
-                        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+                        border-top: 4px solid {TIGO_COLORS['primary']};
+                        border-left: 4px solid {TIGO_COLORS['primary']};
                     ">
-                        <h3 style="color: #fac619; margin-top: 0; font-weight: 600;">Formato CSV</h3>
+                        <h3 style="
+                            color: {TIGO_COLORS['secondary']};
+                            margin-top: 0;
+                            margin-bottom: 1rem;
+                            font-weight: 600;
+                            font-size: 1.2rem;
+                            padding-bottom: 8px;
+                            border-bottom: 2px solid {TIGO_COLORS['primary']};
+                        ">Formato CSV</h3>
                         <pre style="
-                            background-color: #21222f;
-                            padding: 10px;
-                            border-radius: 4px;
-                            color: #fac619;
+                            background-color: #f3f4f6;
+                            padding: 20px;
+                            border-radius: 8px;
+                            margin: 0;
+                            font-size: 0.9rem;
+                            line-height: 1.4;
                             overflow-x: auto;
-                            font-family: monospace;
-                        ">IdCustomer,FirstName,LastName,...
+                        ">
+IdCustomer,FirstName,LastName,...
 123456,Juan,Pérez,...
 789012,María,Rodríguez,...</pre>
                     </div>
@@ -197,26 +230,15 @@ def show_offer_upload():
                 config = OFFER_CONFIGURATION.get(offer_type, {})
                 folder_name = config.get("folder_name", "")
 
-                st.markdown(
-                    f"""
-                    <div style="
-                        background-color: white;
-                        border-radius: 8px;
-                        padding: 15px;
-                    ">
-                        <h4 style="color: #363856; margin-top: 0;">Configuración de carga</h4>
+                st.write("")  # Add some space
+                st.markdown("**Bucket:**")
+                st.code(BUCKET_NAME, language=None)
 
-                        <p style="color: #363856;">Las ofertas de {offer_type_name} se procesan y cargan a S3 con la siguiente estructura:</p>
+                st.markdown("**Ruta:**")
+                st.code(folder_name, language=None)
 
-                        <ul style="color: #363856;">
-                            <li><strong>Bucket:</strong> <code style="background-color: #edf2f7; padding: 2px 4px; border-radius: 4px;">{BUCKET_NAME}</code></li>
-                            <li><strong>Ruta:</strong> <code style="background-color: #edf2f7; padding: 2px 4px; border-radius: 4px;">{folder_name}</code></li>
-                            <li><strong>Fecha de proceso:</strong> {DAY}/{MONTH}/{YEAR}</li>
-                        </ul>
-                    </div>
-                    """,
-                    unsafe_allow_html=True
-                )
+                st.markdown("**Fecha de proceso:**")
+                st.text(f"{DAY}/{MONTH}/{YEAR}")
 
                 # Mostrar información adicional específica
                 if offer_type == OfferLoadTypes.PAYMENT.value:

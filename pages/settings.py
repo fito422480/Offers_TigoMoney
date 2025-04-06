@@ -96,61 +96,9 @@ def show_settings():
         )
 
     # Cerrar el div de configuración general
-    st.markdown("</div>", unsafe_allow_html=True)
-
-    # Configuración de tipos de ofertas
-    st.markdown(
-        f"""
-        <div style="
-            background-color: white;
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-            margin: 20px 0;
-            border-top: 4px solid {TIGO_COLORS['primary']};
-            border-left: 4px solid {TIGO_COLORS['primary']};
-        ">
-            <h3 style="
-                color: {TIGO_COLORS['secondary']};
-                margin-top: 0;
-                margin-bottom: 15px;
-                font-weight: 600;
-                font-size: 1.2rem;
-                padding-bottom: 8px;
-                border-bottom: 2px solid {TIGO_COLORS['primary']};
-            ">Configuración de Tipos de Ofertas</h3>
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
+    st.markdown("</div>", unsafe_allow_html=True)    
 
     # El resto del código continúa igual que en tu versión original
-
-    # Sección para guardar configuración
-    st.markdown(
-        f"""
-        <div style="
-            background-color: white;
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-            margin: 20px 0;
-            border-top: 4px solid {TIGO_COLORS['primary']};
-            border-left: 4px solid {TIGO_COLORS['primary']};
-        ">
-            <h3 style="
-                color: {TIGO_COLORS['secondary']};
-                margin-top: 0;
-                margin-bottom: 15px;
-                font-weight: 600;
-                font-size: 1.2rem;
-                padding-bottom: 8px;
-                border-bottom: 2px solid {TIGO_COLORS['primary']};
-            ">Guardar configuración</h3>
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
 
     # Mensaje de advertencia
     st.warning("Los cambios en la configuración requieren aprobación del administrador.")
@@ -168,110 +116,7 @@ def show_settings():
 
     # Configuración avanzada
     with st.expander("Configuración avanzada", expanded=False):
-        # Sección de procesamiento
-        st.markdown(
-            f"""
-            <div style="
-                background-color: white;
-                border-radius: 10px;
-                padding: 20px;
-                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-                margin-bottom: 20px;
-                border-top: 4px solid {TIGO_COLORS['primary']};
-                border-left: 4px solid {TIGO_COLORS['primary']};
-            ">
-                <h3 style="
-                    color: {TIGO_COLORS['secondary']};
-                    margin-top: 0;
-                    margin-bottom: 15px;
-                    font-weight: 600;
-                    font-size: 1.2rem;
-                    padding-bottom: 8px;
-                    border-bottom: 2px solid {TIGO_COLORS['primary']};
-                ">Configuración de procesamiento</h3>
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
-
-        # Sección de logs
-        st.markdown(
-            f"""
-            <div style="
-                background-color: white;
-                border-radius: 10px;
-                padding: 20px;
-                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-                margin-bottom: 20px;
-                border-top: 4px solid {TIGO_COLORS['primary']};
-                border-left: 4px solid {TIGO_COLORS['primary']};
-            ">
-                <h3 style="
-                    color: {TIGO_COLORS['secondary']};
-                    margin-top: 0;
-                    margin-bottom: 15px;
-                    font-weight: 600;
-                    font-size: 1.2rem;
-                    padding-bottom: 8px;
-                    border-bottom: 2px solid {TIGO_COLORS['primary']};
-                ">Configuración de registros (logs)</h3>
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
-
-        # Sección de tareas programadas
-        st.markdown(
-            f"""
-            <div style="
-                background-color: white;
-                border-radius: 10px;
-                padding: 20px;
-                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-                margin-bottom: 20px;
-                border-top: 4px solid {TIGO_COLORS['primary']};
-                border-left: 4px solid {TIGO_COLORS['primary']};
-            ">
-                <h3 style="
-                    color: {TIGO_COLORS['secondary']};
-                    margin-top: 0;
-                    margin-bottom: 15px;
-                    font-weight: 600;
-                    font-size: 1.2rem;
-                    padding-bottom: 8px;
-                    border-bottom: 2px solid {TIGO_COLORS['primary']};
-                ">Tareas programadas</h3>
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
-
-        # Sección de seguridad
-        st.markdown(
-            f"""
-            <div style="
-                background-color: white;
-                border-radius: 10px;
-                padding: 20px;
-                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-                margin-bottom: 20px;
-                border-top: 4px solid {TIGO_COLORS['primary']};
-                border-left: 4px solid {TIGO_COLORS['primary']};
-            ">
-                <h3 style="
-                    color: {TIGO_COLORS['secondary']};
-                    margin-top: 0;
-                    margin-bottom: 15px;
-                    font-weight: 600;
-                    font-size: 1.2rem;
-                    padding-bottom: 8px;
-                    border-bottom: 2px solid {TIGO_COLORS['primary']};
-                ">Configuración de seguridad</h3>
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
-
+       
         # Controles de configuración avanzada
         col1, col2 = st.columns(2)
 
