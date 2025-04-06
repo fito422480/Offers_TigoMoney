@@ -260,3 +260,54 @@ div.row-widget.stRadio > div[role="radiogroup"] > label[aria-checked="true"] > d
 .font-bold {
   font-weight: 700 !important;
 }
+
+/* Agregar al inicio del archivo style.css */
+
+/* Ocultar elementos duplicados en la barra lateral */
+[data-testid="stSidebar"] {
+  position: relative;
+}
+
+[data-testid="stSidebar"] > div:first-child > div:first-child > div:nth-child(2)::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 240px; /* Ajustar según sea necesario para cubrir los elementos duplicados */
+  background-color: #363856; /* Color de fondo del sidebar */
+  z-index: 1;
+}
+
+/* Posicionar el logo y el panel de control por encima
+[data-testid="stSidebar"] > div:first-child > div:first-child > div:nth-child(2) > div:first-child {
+  position: relative;
+  z-index: 2;
+} */
+
+/* Posicionar la sección Home y sus radio buttons por encima */
+[data-testid="stSidebar"] > div:first-child > div:first-child > div:nth-child(2) > div:nth-child(5),
+[data-testid="stSidebar"] > div:first-child > div:first-child > div:nth-child(2) > div:nth-child(6) {
+  position: relative;
+  z-index: 2;
+}
+
+/* También intentar con selectores más específicos */
+a[href="#app"],
+a[href="#dashboard"],
+a[href="#history"],
+a[href="#offer-upload"],
+a[href="#settings"] {
+  display: none !important;
+}
+
+/* Último recurso: añadir un overlay que cubra los elementos duplicados */
+.sidebar-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 200px;
+  background-color: #363856;
+  z-index: 1000;
+}

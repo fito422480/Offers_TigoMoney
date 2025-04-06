@@ -9,7 +9,7 @@ def render_sidebar():
         str: Opción seleccionada.
     """
     with st.sidebar:
-        # Sección de navegación
+        # Renderizar navegación y encabezado Home
         st.markdown("---")
         st.markdown("### Home")
 
