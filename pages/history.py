@@ -10,6 +10,13 @@ def show_history():
     """
     Muestra la página de historial de cargas con el estilo Tigo Money.
     """
+    # Inicializar session_state si no existe
+    if 'upload_history' not in st.session_state:
+        st.session_state.upload_history = []
+
+    if 'upload_stats' not in st.session_state:
+        st.session_state.upload_stats = {}
+
     # Título de la página
     st.markdown("<h1 style='color: #363856; margin-bottom: 1rem;'>Historial de Cargas</h1>", unsafe_allow_html=True)
 

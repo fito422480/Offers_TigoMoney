@@ -196,3 +196,43 @@ body {
   color: white;
   margin-top: 10px;
 }
+
+/* Radio button styling for sidebar */
+div.row-widget.stRadio > div[role="radiogroup"] {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+div.row-widget.stRadio > div[role="radiogroup"] > label {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  color: white;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+div.row-widget.stRadio > div[role="radiogroup"] > label:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+div.row-widget.stRadio > div[role="radiogroup"] > label[data-baseweb="radio"] > div:first-child {
+  background-color: white;
+  border: 2px solid var(--tigo-blue);
+}
+
+div.row-widget.stRadio > div[role="radiogroup"] > label[aria-checked="true"] {
+  background-color: var(--tigo-yellow);
+  color: var(--tigo-blue);
+  font-weight: 600;
+  border-color: var(--tigo-yellow);
+}
+
+div.row-widget.stRadio > div[role="radiogroup"] > label[aria-checked="true"] > div[data-baseweb="radio"] > div:first-child {
+  background-color: var(--tigo-blue);
+  border-color: var(--tigo-blue);
+}

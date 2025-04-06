@@ -11,7 +11,7 @@ from pages.dashboard import show_dashboard
 from pages.offer_upload import show_offer_upload
 from pages.history import show_history
 from pages.settings import show_settings
-from utils.ui_helpers import apply_custom_css, show_logo
+from utils.ui_helpers import show_logo
 
 # Configuración de la página
 st.set_page_config(
@@ -20,9 +20,6 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded"
 )
-
-# Aplicar estilos personalizados
-apply_custom_css()
 
 # Inicializar session state
 if 'upload_history' not in st.session_state:
@@ -37,21 +34,6 @@ def main():
 
     # Renderizar navegación y obtener página seleccionada
     app_page = render_sidebar()
-
-    # Configurar el fondo blanco
-    st.markdown(
-        """
-        <style>
-        .main {
-            background-color: white !important;
-        }
-        .block-container {
-            background-color: white !important;
-        }
-        </style>
-        """,
-        unsafe_allow_html=True
-    )
 
     # Mostrar la página correspondiente
     if app_page == "Dashboard":

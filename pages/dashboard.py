@@ -13,6 +13,12 @@ def show_dashboard():
     """
     Muestra el dashboard con estadísticas y gráficos.
     """
+        # Inicializar session_state si no existe
+    if 'upload_history' not in st.session_state:
+        st.session_state.upload_history = []
+
+    if 'upload_stats' not in st.session_state:
+        st.session_state.upload_stats = {}
     # Título del dashboard
     st.markdown(
         """

@@ -21,7 +21,7 @@ def render_sidebar():
                 "Historial",
                 "Configuración"
             ],
-            index=1,  # Por defecto seleccionar "Carga de Ofertas"
+            index=0,  # Por defecto seleccionar "Dashboard"
             key="navigation_radio"
         )
 
@@ -31,8 +31,8 @@ def render_sidebar():
 
         # Usar columnas para mostrar la información de usuario
         st.text(f"Usuario: {LOAD_USER}")
-        st.text(f"País: {COUNTRY.capitalize()}")
-        st.text(f"Ambiente: {ENVIRONMENT.upper()}")
+        st.text(f"País: {str(COUNTRY).capitalize()}")
+        st.text(f"Ambiente: {str(ENVIRONMENT).upper()}")
 
         # Sección de fecha simplificada
         st.markdown("---")
@@ -60,36 +60,6 @@ def create_tabs_for_offers():
         "Micro Préstamos",
         "DA Collection"
     ]
-
-    # Añadir CSS personalizado para las pestañas
-    st.markdown(
-        """
-        <style>
-        /* Estilos personalizados para pestañas */
-        .stTabs [data-baseweb="tab-list"] {
-            gap: 6px;
-            background-color: #fac619;
-            padding: 6px !important;
-            border-radius: 10px;
-        }
-
-        .stTabs [data-baseweb="tab"] {
-            font-weight: 600;
-            color: #363856 !important;
-            background-color: #fac619;
-            border-radius: 8px;
-            margin: 0;
-            padding: 10px 20px;
-            transition: all 0.2s ease;
-        }
-
-        .stTabs [aria-selected="true"] {
-            background-color: white !important;
-        }
-        </style>
-        """,
-        unsafe_allow_html=True
-    )
 
     tabs = st.tabs(tab_names)
 
